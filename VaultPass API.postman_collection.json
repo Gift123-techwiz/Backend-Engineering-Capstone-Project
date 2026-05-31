@@ -1,0 +1,230 @@
+{
+  "info": {
+    "_postman_id": "b1fbb89e-6130-4270-8bc0-b8c068ad1e23",
+    "name": "VaultPass API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54690466",
+    "_collection_link": "https://go.postman.co/collection/54690466-b1fbb89e-6130-4270-8bc0-b8c068ad1e23?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"Amelia Shakes\",\r\n  \"email\": \"ameliashakes@gmail.com\",\r\n  \"password\": \"ameliashakes123\",\r\n  \"role\": \"user\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:1311/api/user/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "user",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"johndough@me.com\",\r\n  \"password\": \"johndough123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:1311/api/user/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "user",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Public Route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:1311/api/public/message",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "public",
+            "message"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Profile Route",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMWM2MGYwYjdhOWZhMjdjMjM1NGM5MiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiam9obmRvdWdoQG1lLmNvbSIsImlhdCI6MTc4MDI1OTAyNywiZXhwIjoxNzgwMjYyNjI3fQ.l632B5Q3WfyMOzA0nhTeFGmhDUBKd2QbiQC0RSBgGFs",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:1311/api/user/profile",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "user",
+            "profile"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Report Route",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMWM2MGYwYjdhOWZhMjdjMjM1NGM5MiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiam9obmRvdWdoQG1lLmNvbSIsImlhdCI6MTc4MDI1OTAyNywiZXhwIjoxNzgwMjYyNjI3fQ.l632B5Q3WfyMOzA0nhTeFGmhDUBKd2QbiQC0RSBgGFs",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:1311/api/moderator/reports",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "moderator",
+            "reports"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMWM2MGYwYjdhOWZhMjdjMjM1NGM5MiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiam9obmRvdWdoQG1lLmNvbSIsImlhdCI6MTc4MDI1OTAyNywiZXhwIjoxNzgwMjYyNjI3fQ.l632B5Q3WfyMOzA0nhTeFGmhDUBKd2QbiQC0RSBgGFs",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:1311/api/admin/user/6a1c5d481f65cf31b68d4b60",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "admin",
+            "user",
+            "6a1c5d481f65cf31b68d4b60"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMWM2MGYwYjdhOWZhMjdjMjM1NGM5MiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiam9obmRvdWdoQG1lLmNvbSIsImlhdCI6MTc4MDI1OTAyNywiZXhwIjoxNzgwMjYyNjI3fQ.l632B5Q3WfyMOzA0nhTeFGmhDUBKd2QbiQC0RSBgGFs",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:1311/api/admin/promote/6a1c6190b7a9fa27c2354c95",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1311",
+          "path": [
+            "api",
+            "admin",
+            "promote",
+            "6a1c6190b7a9fa27c2354c95"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
