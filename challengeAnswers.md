@@ -29,7 +29,7 @@ After confirming who the person is, authorization then comes in. For example, in
 
 JWT expiration is important because it makes applications more secure and helps protect user accounts from unauthorized access.
 
-If tokens never expire and a token is stolen by a hacker, the hacker could continue accessing the user's account indefinitely without needing to log in again.
+If tokens never expire and a token is stolen by a hacker, the hacker could continue accessing the user's account indefinitely.
 
 ---
 
@@ -39,7 +39,7 @@ If tokens never expire and a token is stolen by a hacker, the hacker could conti
 **Answer:**
 
 1. Force the user to log out and invalidate the token.
-2. Block authorization requests associated with the compromised token.
+2. Block any form of authorization until the token expires.
 3. Monitor the account for suspicious activity and unusual login behavior.
 
 ---
