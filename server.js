@@ -1,9 +1,9 @@
+const { notFound, errorHandler} = require("./middlewares/errorMiddleware");
 const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 
 const connectDB = require("./config/db");
-const User = require("./models/user");
 const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
@@ -17,12 +17,12 @@ app.use(morgan("dev"));
 
 const PORT = process.env.PORT;
 
-app.get("/", (req, res)=>{
-    res.json({message: "VaultPass API running"});
-})
-
 //routes
 app.use("/api", authRoutes);
+
+//error handler
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, async () => {
     await connectDB();

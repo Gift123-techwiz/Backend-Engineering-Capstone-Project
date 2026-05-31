@@ -1,3 +1,4 @@
+const activityLog = require("../models/activityLog");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -14,7 +15,7 @@ const registerUser = async (req, res) => {
         //check if user already exists
         const existingUser = await User.findOne({email});
         if(existingUser){
-            return res.status(400).json({message: "User already exists"});
+            return res.status(409).json({message: "User already exists"});
         }
 
         //hash password
@@ -28,6 +29,13 @@ const registerUser = async (req, res) => {
             role
         });
         await newUser.save();
+
+        //log regiateration activity
+        await activityLog.create({
+            action: "User registered",
+            user: newUser.email,
+            ipAddress: req.ip
+        });
 
         return res.status(201).json({message: `User ${newUser.fullName} registered successfully`});
 
@@ -60,6 +68,13 @@ const loginUser = async (req, res) => {
         //check if password is correct
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
+
+            await activityLog.create({
+                action: "Failed login attempt",
+                user: email,
+                ipAddress: req.ip
+            });
+            
             const now = new Date();
 
             //reset failed attempts to 1 if we are outside the 10 minute window, otherwise increment failed attempts
@@ -90,7 +105,14 @@ const loginUser = async (req, res) => {
         await user.save();
 
         //generate token
-        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: "1h"});
+        const token = jwt.sign({id: user._id, role: user.role, email: user.email}, process.env.JWT_SECRET, {expiresIn: "1h"});
+
+        //log login activity
+        await activityLog.create({
+            action: "User logged in",
+            user: user.email,
+            ipAddress: req.ip
+        });
 
         return res.status(200).json({message: "Login successful", token, user:{
             id: user._id,
@@ -109,6 +131,13 @@ const getProfile = async (req, res) => {
     try{
         //return res.status(200).json({message: "Profile fetched successfully", user: req.user});
         const user = await User.findById(req.user.id).select("-password");
+
+        await activityLog.create({
+            action: "Profile accessed",
+            user: req.user.email,
+            ipAddress: req.ip
+        });
+
         return res.status(200).json({message: "Profile fetched successfully", user});
     }catch(err){
         console.log(err);
@@ -118,6 +147,13 @@ const getProfile = async (req, res) => {
 
 const getReports = async (req, res)=>{
     try{
+        //log report access activity
+        await activityLog.create({
+            action: "Reports accessed",
+            user: req.user.email,
+            ipAddress: req.ip
+        });
+
         return res.status(200).json({message: "Reports fetched successfully"});
     }catch(err){
         console.log(err);
@@ -137,6 +173,13 @@ const deleteUser = async (req, res) => {
         if(!user){
             return res.status(404).json({message: "User not found"});
         }
+
+        //log user deletion activity
+        await activityLog.create({
+            action: "User deleted",
+            user: user.email,
+            ipAddress: req.ip
+        });
 
         await User.findByIdAndDelete(id);
         return res.status(200).json({message: `User ${user.fullName} deleted successfully`});
@@ -164,6 +207,13 @@ const promoteUser = async (req, res) => {
         }else if(user.role === "user"){
             user.role = "moderator";
         }
+
+        //log user promotion activity
+        await activityLog.create({
+            action: "User promoted",
+            user: user.email,
+            ipAddress: req.ip
+        });
 
         await user.save();
         return res.status(200).json({message: `User ${user.fullName} promoted successfully`, user});

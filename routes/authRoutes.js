@@ -20,6 +20,11 @@ router.get("/moderator/reports", protect, authorize("moderator", "admin"), getRe
 router.delete("/admin/user/:id", protect, authorize("admin"), deleteUser);
 
 // Promote user route
-router.patch("/admin/promote/:id", protect, authorize("admin"), promoteUser);
+router.post("/admin/promote/:id", protect, authorize("admin"), promoteUser);
+
+//public route
+router.get("/public/message", (req, res)=>{
+    return res.status(200).json({message: "This route is public"});
+});
 
 module.exports = router;
